@@ -134,10 +134,10 @@ class gitlab_ci_multi_runner (
         ensure => $theVersion,
     } ->
     exec { 'Uninstall Misconfigured Service':
-        command  => "service ${service} stop; ${service} uninstall",
+        command  => "service ${service} stop;[ -f ${service_file} ] &&  ${service} uninstall",
         user     => root,
         provider => shell,
-        unless   => "[ -f ${service_file} ] && grep '${toml_file}' ${service_file}",
+        unless   => "grep '${toml_file}' ${service_file}",
     } ->
     exec { 'Ensure Service':
         command  => "${service} install --user ${user} --config ${toml_file} --working-directory ${home_path}",
