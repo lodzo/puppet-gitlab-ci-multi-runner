@@ -137,7 +137,7 @@ class gitlab_ci_multi_runner (
         command  => "service ${service} stop; ${service} uninstall",
         user     => root,
         provider => shell,
-        unless   => "grep '${toml_file}' ${service_file}",
+        unless   => "[ -f ${service_file} ] && grep '${toml_file}' ${service_file}",
     } ->
     exec { 'Ensure Service':
         command  => "${service} install --user ${user} --config ${toml_file} --working-directory ${home_path}",
