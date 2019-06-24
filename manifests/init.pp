@@ -109,7 +109,7 @@ class gitlab_ci_multi_runner (
 
     $toml_file = "${toml_path}/config.toml"
 
-    $repo_script = 'https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner'
+    $repo_script = 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner'
 
     if $env { Exec { environment => $env } }
 
@@ -130,7 +130,7 @@ class gitlab_ci_multi_runner (
         creates  => $repo_location,
     } ->
     # Install the package after the repo has been added.
-    package { 'gitlab-ci-multi-runner':
+    package { 'gitlab-runner':
         ensure => $theVersion,
     } ->
     exec { 'Uninstall Misconfigured Service':
